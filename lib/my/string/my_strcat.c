@@ -1,21 +1,32 @@
 /*
 ** EPITECH PROJECT, 2023
-** day07
+** my_hunter
 ** File description:
-** strcat
+** my_strcat
 */
 
 #include "my_string.h"
-#include <stddef.h>
+#include <stdlib.h>
 
-char *my_strcat(char *dest, char const *src)
+char *my_strcat_line(char *dest, char *src)
 {
-    size_t len = my_strlen(dest);
-    int i = 0;
+    int len_src = my_strlen(src);
+    int len_dest = my_strlen(dest);
+    int i_dest = 0;
+    int i_src = 0;
+    char *content = malloc(sizeof(char) * (len_src + len_dest + 2));
 
-    for (; src[i] != '\0'; i++) {
-        dest[len + i] = src[i];
+    while (dest[i_dest] != '\0') {
+        content[i_dest] = dest[i_dest];
+        i_dest++;
     }
-    dest[len + i] = '\0';
-    return dest;
+    content[i_dest] = '\n';
+    i_dest++;
+    for (; src[i_src] != '\0'; i_src++) {
+        content[i_dest] = src[i_src];
+        i_dest++;
+    }
+    free(dest);
+    content[i_dest] = '\0';
+    return content;
 }

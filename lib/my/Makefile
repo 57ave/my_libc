@@ -5,57 +5,31 @@
 ## lib
 ##
 
-NAME =	libmy.a
-
-CC = gcc
-
-CPPFLAGS += -iquote "include"
-
-CFLAGS = -Wall -Wextra
-
-STRING = 	string/my_strstr.c \
-			string/my_strcmp.c 	\
-			string/my_strncmp.c 	\
-			string/my_strcat.c 	\
-			string/my_strncat.c 	\
-			string/my_strcpy.c 	\
-			string/my_strncpy.c 	\
-			string/my_revstr.c 	\
-			string/my_strlowcase.c \
-			string/my_strupcase.c 	\
-			string/my_strlen.c 	\
-			string/my_putnbr.c 	\
-			string/my_getnbr.c 	\
-			string/my_putstr.c 	\
-
-MATH =	math/my_compute_power_rec.c\
-		math/my_compute_square_root.c\
-		math/my_find_prime_sup.c\
-		math/my_isneg.c\
-		math/my_is_prime.c\
-		math/my_sort_int_array.c\
-		math/my_swap.c\
-
-SRC = $(STRING) 	\
-	  $(MATH)
-
-OBJ = 	$(SRC:.c=.o)
-
-all: $(NAME)
-
-$(NAME): $(OBJ)
-	ar rc -o $(NAME) $(OBJ)
-	cp libmy.a ../libmy.a
+all:
+	make -C string/
+	make -C my_toml/
+	make -C stdlib/
+	make -C bin_tree/
 
 clean:
-	$(RM) $(OBJ)
+	make -C string/ clean
+	make -C my_toml/ clean
+	make -C stdlib/ clean
+	make -C bin_tree/ clean
 
-fclean: clean
-	$(RM) $(NAME)
+fclean:
+		make -C string/ fclean
+		make -C my_toml/ fclean
+		make -C stdlib/ fclean
+		make -C bin_tree/ fclean
 
-debug: CFLAGS += -ggdb3
-debug: fclean all
+debug:
+		make -C string/ debug
+		make -C my_toml/ debug
+		make -C stdlib/ debug
+		make -C bin_tree/ debug
 
-re: fclean all clean
+re: fclean
+re: all
 
 .PHONY: all clean fclean re debug
